@@ -1,0 +1,6 @@
+#!/bin/bash
+set -x
+
+bison -d cobol.y
+flex -i cobol.lex
+gcc lex.yy.c cobol.tab.c
