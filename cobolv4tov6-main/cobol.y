@@ -398,8 +398,7 @@ pgm: program  {printf(" THE PROGRAM IS VALID \n");exit(0);}
 program
 	: identification_division 
 	  environment_division
-	  configuration_section 
-	  special_names
+	 
 	  data_division 
 	  procedure_division 
 	  ;
@@ -508,7 +507,6 @@ data_division
 	| 
 	;
 	
-	
 	data_section_entry
 	:  working_storage_section
     | linkage_section
@@ -523,8 +521,6 @@ file_section
 	: TOK_FILE TOK_SECTION TOK_PERIOD 
 	;
 	
-	
-		
 working_storage_section
 	: TOK_WORKING_STORAGE TOK_SECTION TOK_PERIOD
 	|TOK_WORKING_STORAGE TOK_SECTION TOK_PERIOD record_entry_block
@@ -547,14 +543,12 @@ copy
 	: TOK_COPY TOK_STRING TOK_PERIOD
 	;
 
-
 record_entry_block_pl
 	: record_entry_block
 	;
 
 record_level
-    :TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_VALUE inc
-	 TOK_PERIOD
+    :TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_VALUE inc TOK_PERIOD
 /*
 	|TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_PERIOD
 */
@@ -564,13 +558,16 @@ record_level
 	/*PEUT MIEUX FAIRE CAR REPETITION AVEC RULES AU DESSUS*/
 	|TOK_INTEGER level_name TOK_PICTURE TOK_INTEGER TOK_LPAREN TOK_INTEGER TOK_RPAREN TOK_PERIOD
 
+	/*CONDITION FINIE DANS LE RECORD_NEW_OR_REDEF*/
 	|TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_LPAREN TOK_INTEGER TOK_RPAREN record_new_or_redef
 
-	|TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_PERIOD 
+	|TOK_INTEGER TOK_IDENTIFIER picture TOK_PERIOD 
 	|TOK_INTEGER identifier TOK_PERIOD
 	|TOK_INTEGER identifier TOK_PICTURE TOK_STRING TOK_COMP TOK_VALUE TOK_INTEGER TOK_PERIOD
 	|TOK_INTEGER identifier record_new_or_redef TOK_PERIOD
 	|TOK_INTEGER 
+
+	|TOK_INTEGER identifier optional_is TOK_EXTERNAL picture TOK_PERIOD
 	;
 inc:
 	TOK_INTEGER
@@ -601,7 +598,7 @@ record_new_or_redef
 	| pict_usage_args TOK_INTEGER TOK_PERIOD
 
 	/*ADD REDEFINES WW00 PICTURE 9(10)*/
-	| TOK_REDEFINES identifier TOK_PICTURE TOK_INTEGER optional_lparen TOK_INTEGER optional_rparen  
+	| TOK_REDEFINES identifier picture  
 
 	|array_options picture TOK_COMP  value_entry
 
@@ -612,19 +609,18 @@ record_new_or_redef
            " Exemple @ Reproduire ==> NE PAS ECRASER CETTE FAUSSE ANO           
       -    " elle n'est pas prise en compte lors de l'affichage       "         
              .*/
-	| TOK_VALUE TOK_HALF_STRING TOK_HYPHEN TOK_STRING TOK_PERIOD
+	| TOK_VALUE value TOK_PERIOD
 
 	| array_options
 	;
 	
 array_options
 	: TOK_OCCURS integer optional_times TOK_INDEXED optional_by identifier
-	| /* lambda */
-
-
 	/*05                EREU                  OCCURS 01.  */
-	| TOK_OCCURS TOK_INTEGER TOK_PERIOD
+	| TOK_OCCURS TOK_INTEGER  
+	| 
 	;
+
 
 
 reclev_option_list
@@ -676,10 +672,11 @@ left_right_option
 	| /* lambda */
 	;
 	
-
-	
 picture
-	: TOK_PICTURE optional_is TOK_STRING
+	: TOK_PICTURE optional_is value
+	| TOK_PICTURE value
+	| picture optional_lparen value optional_rparen
+	| picture array_options 
 	| /* lambda */
 	;
 
@@ -708,6 +705,7 @@ value
 
 string
 	: TOK_STRING
+	| TOK_HALF_STRING TOK_HYPHEN TOK_STRING
 	;
 	
 float
@@ -1257,7 +1255,7 @@ while(fgets(str, 300, file) != NULL){
 	}
 fclose(new);
 fclose(file);
-yyin = fopen("inputV6.cbl", "r");
+yyin = fopen("input_ori.cbl", "r");
 yyparse();
 }
 
