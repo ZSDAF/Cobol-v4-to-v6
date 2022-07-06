@@ -16,6 +16,8 @@ pre #.*
 
 \"[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*	{return(TOK_HALF_STRING);}
 
+==[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*== {return(TOK_PREF);}
+
 \'[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\";=><\!\$\@\#\%]*\'	{return(TOK_STRING);}
 
 "accept"		{ pos_char += yyleng; return (TOK_ACCEPT);	}
@@ -414,7 +416,7 @@ pre #.*
 "less than or equal to"        {pos_char += yyleng; return(TOK_LESS_EQ); }
 ">"			{pos_char += 1; return(TOK_GREATER); }
 "<"			{pos_char += 1; return(TOK_LESS); }
-"\""        {pos_char += 1; return(TOK_MY); }
+
 [\n]        {pos_char = 1; ++yylineno;}
 \t 			{pos_char += 4;}	
 " "			{pos_char += 1;}

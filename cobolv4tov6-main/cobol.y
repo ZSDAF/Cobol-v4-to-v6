@@ -268,6 +268,7 @@ extern int pos_char;
 %token TOK_POINTER
 %token TOK_POSITION
 %token TOK_POSITIVE
+%token TOK_PREF
 %token TOK_PRINTING
 %token TOK_PROCEDURE
 %token TOK_PROCEDURES
@@ -398,7 +399,8 @@ pgm: program  {printf(" THE PROGRAM IS VALID \n");exit(0);}
 program
 	: identification_division 
 	  environment_division
-	 
+	  configuration_section
+	  special_names
 	  data_division 
 	  procedure_division 
 	  ;
@@ -541,6 +543,7 @@ record_entry_block
 
 copy
 	: TOK_COPY TOK_STRING TOK_PERIOD
+	| TOK_COPY TOK_STRING TOK_PREF TOK_BY TOK_PREF TOK_PERIOD
 	;
 
 record_entry_block_pl
@@ -568,6 +571,8 @@ record_level
 	|TOK_INTEGER 
 
 	|TOK_INTEGER identifier optional_is TOK_EXTERNAL picture TOK_PERIOD
+	/*| copy*/
+	
 	;
 inc:
 	TOK_INTEGER
@@ -1255,7 +1260,7 @@ while(fgets(str, 300, file) != NULL){
 	}
 fclose(new);
 fclose(file);
-yyin = fopen("input_ori.cbl", "r");
+yyin = fopen("inputV6.cbl", "r");
 yyparse();
 }
 
