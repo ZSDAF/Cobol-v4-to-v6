@@ -543,7 +543,7 @@ record_entry_block
 
 copy
 	: TOK_COPY TOK_STRING TOK_PERIOD
-	| TOK_COPY TOK_STRING TOK_PREF TOK_BY TOK_PREF TOK_PERIOD
+	| TOK_COPY TOK_STRING TOK_REPLACING TOK_PREF TOK_BY TOK_PREF TOK_PERIOD
 	;
 
 record_entry_block_pl
@@ -551,7 +551,7 @@ record_entry_block_pl
 	;
 
 record_level
-    :TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_VALUE inc TOK_PERIOD
+    :TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER value_entry TOK_PERIOD
 /*
 	|TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_PERIOD
 */
@@ -566,11 +566,13 @@ record_level
 
 	|TOK_INTEGER TOK_IDENTIFIER picture TOK_PERIOD 
 	|TOK_INTEGER identifier TOK_PERIOD
-	|TOK_INTEGER identifier TOK_PICTURE TOK_STRING TOK_COMP TOK_VALUE TOK_INTEGER TOK_PERIOD
+	/*|TOK_INTEGER identifier TOK_PICTURE TOK_STRING TOK_COMP TOK_VALUE TOK_INTEGER TOK_PERIOD*/
 	|TOK_INTEGER identifier record_new_or_redef TOK_PERIOD
 	|TOK_INTEGER 
 
 	|TOK_INTEGER identifier optional_is TOK_EXTERNAL picture TOK_PERIOD
+
+	|TOK_INTEGER level_name record_new_or_redef 
 	/*| copy*/
 	
 	;
@@ -697,6 +699,7 @@ pict_usage_args
 
 value_entry
 	: TOK_VALUE optional_is value
+	| TOK_VALUE inc
 	| /* lambda */
 	;
 	
