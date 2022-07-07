@@ -567,12 +567,13 @@ record_level
 	|TOK_INTEGER TOK_IDENTIFIER picture TOK_PERIOD 
 	|TOK_INTEGER identifier TOK_PERIOD
 	/*|TOK_INTEGER identifier TOK_PICTURE TOK_STRING TOK_COMP TOK_VALUE TOK_INTEGER TOK_PERIOD*/
-	|TOK_INTEGER identifier record_new_or_redef TOK_PERIOD
+	|TOK_INTEGER TOK_IDENTIFIER record_new_or_redef TOK_PERIOD
+	|TOK_INTEGER TOK_FILLER record_new_or_redef TOK_PERIOD
 	|TOK_INTEGER 
 
 	|TOK_INTEGER identifier optional_is TOK_EXTERNAL picture TOK_PERIOD
-
-	|TOK_INTEGER level_name record_new_or_redef 
+	|TOK_IDENTIFIER TOK_NOT TOK_EQUAL TOK_IDENTIFIER TOK_OR 
+	/*|TOK_INTEGER level_name record_new_or_redef */
 	/*| copy*/
 	
 	;
@@ -802,6 +803,7 @@ boolean_list_pl
 
 boolean
 	: optional_lparen expression optional_is boolean2 optional_rparen
+	| boolean2
     ;
 
 boolean2
