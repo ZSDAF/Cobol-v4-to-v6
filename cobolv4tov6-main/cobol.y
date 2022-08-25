@@ -66,6 +66,7 @@ extern int pos_char;
 %token TOK_COMMON
 %token TOK_COMMUNICATION
 %token TOK_COMP
+%token TOK_COMP_2
 %token TOK_COMPUTATIONAL
 %token TOK_COMPUTATIONAL_2
 %token TOK_COMPUTE
@@ -403,6 +404,15 @@ program
 	  special_names
 	  data_division 
 	  procedure_division 
+	  | identification_division 
+	  environment_division
+	  configuration_section
+	  data_division 
+	  procedure_division
+	  | identification_division 
+	  environment_division
+	  data_division 
+	  procedure_division
 	  ;
 
 identification_division
@@ -775,6 +785,7 @@ statement
 	:TOK_DISPLAY TOK_STRING TOK_COMMA TOK_IDENTIFIER TOK_PERIOD
 	|word_list prg_name_option TOK_PERIOD TOK_DISPLAY TOK_STRING  TOK_PERIOD
 	|TOK_DISPLAY TOK_STRING  TOK_PERIOD
+	|TOK_DISPLAY TOK_STRING  
 	|TOK_MOVE TOK_INTEGER TOK_TO TOK_IDENTIFIER TOK_PERIOD
     |clause TOK_PERIOD
 	| if_clause TOK_PERIOD
@@ -881,6 +892,7 @@ clause
 	
 if_clause
 	: TOK_IF boolean_list if_args
+	| TOK_IF TOK_IDENTIFIER relational TOK_IDENTIFIER if_args 
 	;
 	
 	
@@ -1236,7 +1248,7 @@ void main()
 {
 printf("IBM Cobol v4 to v6 preprocessor\n");
 
-FILE* file = fopen("test.cbl", "r");
+FILE* file = fopen("input.cbl", "r");
 if (file == NULL){
 	printf("Error file");
 	return;

@@ -70,7 +70,8 @@ pre #.*
 "comma"			{ pos_char += yyleng; return (TOK_COMMA);	}
 "common"			{ pos_char += yyleng; return (TOK_COMMON);	}
 "communication"		{ pos_char += yyleng; return (TOK_COMMUNICATION);	}
-"comp\-"			{ pos_char += yyleng; return (TOK_COMP);	}
+"comp"			{ pos_char += yyleng; return (TOK_COMP);	}
+"comp\-"			{ pos_char += yyleng; return (TOK_COMP_2);	}
 "computational"		{ pos_char += yyleng; return (TOK_COMPUTATIONAL);	}
 "computational\-"		{ pos_char += yyleng; return (TOK_COMPUTATIONAL_2);	} /*ADD FOR COMPUTATIONAL-X*/
 "compute"			{ pos_char += yyleng; return (TOK_COMPUTE);	}
