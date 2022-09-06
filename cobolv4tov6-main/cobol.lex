@@ -8,17 +8,18 @@
 pre #.*
 %x comment
 %%
-[\+\-]?[0-9]+ {return(TOK_INTEGER);}
+^.*[\n<<EOF>>]  				{strcpy(yylval.error, yytext); REJECT;} /*AFFICHE LA LIGNE D'ERREUR*/
+[\+\-]?[0-9]+ { pos_char += yyleng; return(TOK_INTEGER);}
 
-[\+\-]?[0-9]+\.[0-9]+ {return(TOK_FLOAT);}
+[\+\-]?[0-9]+\.[0-9]+ { pos_char += yyleng; return(TOK_FLOAT);}
 
-\"[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*\"	{return(TOK_STRING);}
+\"[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*\"	{ pos_char += yyleng; return(TOK_STRING);}
+\'[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\";=><\!\$\@\#\%]*\'	{ pos_char += yyleng; return(TOK_STRING_2);}
+\"[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*	{ pos_char += yyleng; return(TOK_HALF_STRING);}
 
-\"[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*	{return(TOK_HALF_STRING);}
+\'[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*	{ pos_char += yyleng; return(TOK_HALF_STRING);}
+==[a-zA-Z0-9\tfzer\-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*== { pos_char += yyleng; return(TOK_PREF);}
 
-==[a-zA-Z0-9\tfzer\-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*== {return(TOK_PREF);}
-
-\'[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\";=><\!\$\@\#\%]*\'	{return(TOK_STRING);}
 
 "accept"		{ pos_char += yyleng; return (TOK_ACCEPT);	}
 "access"			{ pos_char += yyleng; return (TOK_ACCESS);	}
@@ -399,7 +400,7 @@ pre #.*
 
 
 "-"			{pos_char += 1; return(TOK_HYPHEN); }
-\*.*\n 						{ pos_char = 1;}
+\*.* 		{ pos_char += yyleng;}
 
 "/"			{pos_char += 1; return(TOK_SLASH); }
 "="			{pos_char += 1; return(TOK_EQUAL); }

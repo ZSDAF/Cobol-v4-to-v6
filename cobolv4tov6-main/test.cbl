@@ -1,7 +1,7 @@
-      *<cartouche>_02                                                           
+        *<cartouche>_02                                                           
       * IMPORTANT : afin d'assurer la maintenance du programme via     *        
       * la fonctionnalit{ d'import, hormis la zone commentaires,       *        
-      * le contenu du cartouche ne doit en aucun cas �tre alt{r{.      *        
+      * le contenu du cartouche ne doit en aucun cas être alt{r{.      *        
       ******************************************************************        
       **************** CARACTERISTIQUES DU PROGRAMME *******************        
       ******************************************************************        
@@ -18,9 +18,9 @@
       *09/11/2018 E904490 - L LASNIER - BF0232 - E33 Report            *        
       *Cr{ation du programme.                                          *        
       *Cet {cran remonte les conditions d'assurance des assur{s        *        
-      *d'un pr�t donn{ en entr{e.                                      *        
-      *On y acc}de via le menu en gestion "Consultation�               *        
-      *Informations Pr�t�ADE : Conditions d'assurance"                 *        
+      *d'un prêt donn{ en entr{e.                                      *        
+      *On y acc}de via le menu en gestion "Consultationç               *        
+      *Informations PrêtçADE : Conditions d'assurance"                 *        
       *Vue en r{ception WG4A                                           *        
       *Vue en {mission 9G4A                                            *        
       *                                                                *        
@@ -69,7 +69,7 @@
       *  Ajout du conditionnement d'alimentaiton du X58B-MTPA15 en     *        
       *  099-F92CN.                                                    *        
       *2-CAGIPINC0281457 - Correction alim CDMAAS en cas d'horizon MIxt*        
-      *  en fonction 007-F50DD au cas o� le H2 n'est pas le 1ier       *        
+      *  en fonction 007-F50DD au cas o¦ le H2 n'est pas le 1ier       *        
       *  r{cup{r{.                                                     *        
       *3-CAGIPINC0252943 - Prise en compte du remboursement partiel en *        
       *  le retirant (DF01-MKRAPR) de X58B-MTPA15 en 099-F92CN.        *        
@@ -83,107 +83,107 @@
       ******************************************************************        
       ******************** FONCTIONS UTILISEES *************************        
       ******************************************************************        
-      * +AAACD        : R{cup{ration date syst}me UNIX sur 8C.        �*        
-      *  > WW00-X0016�                                           0019  *        
-      * +AACA3        : Appel Sous-programme                          �*        
-      *  > 91CG�510600�X601����                                  0024  *        
-      * +AACAL        : Appel sous-programme                          �*        
-      *  > F91CC�51058A�X58A�                                    0020  *        
-      *  > F91CD�51058B�X58B�                                    0021  *        
-      *  > F91CE�51058E�X58E�                                    0022  *        
-      *  > F91CF�51058H�X58H�                                    0023  *        
-      * +AAMES        : Encapsulation Message d'erreur                �*        
-      *  > 10DB13�"# - 10DB 130 - "�"PB ACCES VERSION ADI : "�   0011  *        
-      *    X601-LMRETO�                                                *        
-      *  > 50BJ16�"# - 50BJ 160 - "�"PB ACCES DF01 IDELCO :"�    0012  *        
-      *    TX00-IDELC0�                                                *        
-      *  > 50BJ25�"# - 50BJ 250 - "�"PB ACCES DF11 IDELCO :"�    0013  *        
-      *    DF01-IDELCO�                                                *        
-      *  > 50BN16�"# - 50BN 160 - "�"PB ACCES DC03 IDPART :"�    0014  *        
-      *    DF01-IDPART�                                                *        
-      *  > 50CF28�"# - 50CF 280 - "�"RETOUR 51058B KO POUR "�    0015  *        
-      *    "ASSURE : "�                                                *        
-      *  > 92CJ12�"# - 92CJ 120 - "�"RETOUR 51058A KO POUR "�    0016  *        
-      *    "ASSURE : "�                                                *        
-      *  > 50DB19�"# - 50DB 190 - "�"RETOUR 51058A KO POUR "�    0017  *        
-      *    "ASSURE : "�                                                *        
-      *  > 50DM03�"# - 50DM 030 - "�"PAS D'ASSURE POUR "�        0018  *        
-      *    "IDELCO : "�                                                *        
-      *  > 92JF17�"# - 92JF 170 - "�"DC05 NON TROUVE POUR "�     0025  *        
-      *    "IDELCO : "�                                                *        
-      *  > 92JF27�"# - 92JF 270 - "�"DC23 NON TROUVE POUR "�     0026  *        
-      *    "IDELCO : "�                                                *        
-      *  > 92KF17�"# - 92KF 170 - "�"PB ACCES DF81 IDELCO :"�    0027  *        
-      *    DF02-IDELCO�                                                *        
-      *  > 92KH10�"# - 92KH 100 - "�"DF02 NON TROUVE POUR "�     0028  *        
-      *    "IDELCO : "�                                                *        
-      * +AASPR        : ENVIR MVS SOUS-PROG ACCES                0003 �*        
-      * +AASTA        : ENVIR. START REDUIT GREEN                0004 �*        
-      * +ABIN2        : Initialisation SPL en TP - 2                  �*        
-      *  > DF01�                                                 0007  *        
-      *  > DF11�                                                 0008  *        
-      *  > DE04�                                                 0009  *        
-      *  > DF02�                                                 0010  *        
-      *  > AC70�                                                 0064  *        
-      * +ABINI        : Initialisation des SPL en TP             0006 �*        
-      * +ABLCL        : REQUETE LECTURE PAR CLE GREEN                 �*        
-      *  > F95DC�DC03�N�                                         0059  *        
-      *  > F95DD�DC05�N�                                         0060  *        
-      *  > F95DE�DC23�N�                                         0061  *        
-      * +ABLF1        : Requ�te d{but de balayage par cl{ et fil      �*        
-      *  > DC02�O�                                               0062  *        
-      * +ABLFS        : Requ�te suite balayage par cl{ et filtre      �*        
-      *  > DC02� �                                               0063  *        
-      * +ABOCC        : Acc}s objet cl{ logique compl}te              �*        
-      *  > F95BB�DF01�IDTF�                                      0053  *        
-      *  > F95BC�DF11�IDTF�                                      0054  *        
-      *  > F95BE�DE04�IDTF�                                      0056  *        
-      * +ABOCI        : Acc}s objet par cl{ incompl}te                �*        
-      *  > F95BF�DF02�IDTF�                                      0057  *        
-      *  > F95BH�AC70�IDTF�                                      0065  *        
-      * +ABOCS        : Acc}s objet suivant par cl{                   �*        
-      *  > F95BG�DF02�IDTF�                                      0058  *        
-      *  > F95BI�AC70�IDTF�                                      0066  *        
-      * +ABRE1        : Acc}s premi}re relation                       �*        
-      *  > F95BD�DF81�1�DF02�DF29����                            0055  *        
-      * +ABSDE        : START UNIX FCT "DE"                           �*        
-      *  > F93BC�TA�0990�NM262�" "�8210�TF73�TF73�CD�            0029  *        
-      *  > F93BD�RB�0990�ADI242�TD15-ZVAMIN� � �TD15�CD�         0030  *        
-      *  > F93BE�RB�0990�0010�TD15-ZVAMIN� � �TD15�CD�           0031  *        
-      *  > F93BF�RB�8210�CDSUPR�TD15-ZVAMIN� � �TD15�CD�         0032  *        
-      *  > F93BG�RB�0990�BA102�TD15-ZVAMIN� � �TD15�CD�          0033  *        
-      *  > F93BH�RB�0AMT�ADI002�TD15-ZVAMIN� � �TD15�CD�         0034  *        
-      *  > F93BI�RB�8210�CDCAPR�TD15-ZVAMIN� � �TD15�CD�         0035  *        
-      *  > F93BJ�RB�0990�ADI022�TD15-ZVAMIN� � �TD15�CD�         0036  *        
-      *  > F93BK�RB�0990�ADI012�TD15-ZVAMIN� � �TD15�CD�         0037  *        
-      *  > F93BL�RB�0990�ADI221�TD15-ZVAMIN� � �TD15�CD�         0038  *        
-      *  > F93BM�RB�0990�ADI244�TD15-ZVAMIN� � �TD15�CD�         0039  *        
-      *  > F93BN�RB�0990�ADI262�TD15-ZVAMIN� � �TD15�CD�         0040  *        
-      *  > F93BO�RB�0990�ADI243�TD15-ZVAMIN� � �TD15�CD�         0041  *        
-      *  > F93BP�RB�0990�ADI240�TD15-ZVAMIN� � �TD15�CD�         0042  *        
-      *  > F93BQ�RB�0990�ADI018�TD15-ZVAMIN� � �TD15�CD�         0043  *        
-      *  > F93BR�TA�8210�PG1057�" "�8210�TF81�TF81�CD�           0067  *        
-      * AAAREQ        : Environnement Requ�tes GREEN - VRP       0005 �*        
-      * AABPA3        : Lecture param}tre DE04 (optim.)               �*        
-      *  > 01�01�A�PA�ZCJC01AU�`�L�B�                            0002  *        
-      *  > 99�99�A�PA�D5JC99AU�`�L�B�                            0068  *        
-      * AATME3        : Encapsulation message d'erreur variable       �*        
-      *  > 01�"LE NUMERO DE PRET"�"EST OBLIGATOIRE"���           0044  *        
-      *  > 02�"ACCES DF01 KO"�"- IDELCO :"�TX00-IDELC0��         0045  *        
-      *  > 03�"ACCES DF11 KO"�"- IDELCO :"�DF01-IDELCO��         0046  *        
-      *  > 04�"ACCES DF81 KO"�"- IDELCO :"�DF02-IDELCO��         0047  *        
-      *  > 05�"ACCES DC03 KO"�"- IDPART :"�DF01-IDPART��         0048  *        
-      *  > 06�"DF02 NON TROUVE"�"- IDELCO :"�DF02-IDELCO��       0049  *        
-      *  > 07�"DC02 NON TROUVE"�"- IDELCO :"�DC02-IDELCO��       0050  *        
-      *  > 08�"DC05 NON TROUVE"�"- IDELCO :"�DC02-IDELCO��       0051  *        
-      *  > 09�"DC23 NON TROUVE"�"- IDELCO :"�DC02-IDELCO��       0052  *        
-      * AXIMOD        : Fonction standard Module                      �*        
-      *  > O�3�                                                  0001  *        
+      * +AAACD        : R{cup{ration date syst}me UNIX sur 8C.        ¨*        
+      *  > WW00-X0016¨                                           0019  *        
+      * +AACA3        : Appel Sous-programme                          ¨*        
+      *  > 91CG¨510600¨X601¨¨¨¨                                  0024  *        
+      * +AACAL        : Appel sous-programme                          ¨*        
+      *  > F91CC¨51058A¨X58A¨                                    0020  *        
+      *  > F91CD¨51058B¨X58B¨                                    0021  *        
+      *  > F91CE¨51058E¨X58E¨                                    0022  *        
+      *  > F91CF¨51058H¨X58H¨                                    0023  *        
+      * +AAMES        : Encapsulation Message d'erreur                ¨*        
+      *  > 10DB13¨"# - 10DB 130 - "¨"PB ACCES VERSION ADI : "¨   0011  *        
+      *    X601-LMRETO¨                                                *        
+      *  > 50BJ16¨"# - 50BJ 160 - "¨"PB ACCES DF01 IDELCO :"¨    0012  *        
+      *    TX00-IDELC0¨                                                *        
+      *  > 50BJ25¨"# - 50BJ 250 - "¨"PB ACCES DF11 IDELCO :"¨    0013  *        
+      *    DF01-IDELCO¨                                                *        
+      *  > 50BN16¨"# - 50BN 160 - "¨"PB ACCES DC03 IDPART :"¨    0014  *        
+      *    DF01-IDPART¨                                                *        
+      *  > 50CF28¨"# - 50CF 280 - "¨"RETOUR 51058B KO POUR "¨    0015  *        
+      *    "ASSURE : "¨                                                *        
+      *  > 92CJ12¨"# - 92CJ 120 - "¨"RETOUR 51058A KO POUR "¨    0016  *        
+      *    "ASSURE : "¨                                                *        
+      *  > 50DB19¨"# - 50DB 190 - "¨"RETOUR 51058A KO POUR "¨    0017  *        
+      *    "ASSURE : "¨                                                *        
+      *  > 50DM03¨"# - 50DM 030 - "¨"PAS D'ASSURE POUR "¨        0018  *        
+      *    "IDELCO : "¨                                                *        
+      *  > 92JF17¨"# - 92JF 170 - "¨"DC05 NON TROUVE POUR "¨     0025  *        
+      *    "IDELCO : "¨                                                *        
+      *  > 92JF27¨"# - 92JF 270 - "¨"DC23 NON TROUVE POUR "¨     0026  *        
+      *    "IDELCO : "¨                                                *        
+      *  > 92KF17¨"# - 92KF 170 - "¨"PB ACCES DF81 IDELCO :"¨    0027  *        
+      *    DF02-IDELCO¨                                                *        
+      *  > 92KH10¨"# - 92KH 100 - "¨"DF02 NON TROUVE POUR "¨     0028  *        
+      *    "IDELCO : "¨                                                *        
+      * +AASPR        : ENVIR MVS SOUS-PROG ACCES                0003 ¨*        
+      * +AASTA        : ENVIR. START REDUIT GREEN                0004 ¨*        
+      * +ABIN2        : Initialisation SPL en TP - 2                  ¨*        
+      *  > DF01¨                                                 0007  *        
+      *  > DF11¨                                                 0008  *        
+      *  > DE04¨                                                 0009  *        
+      *  > DF02¨                                                 0010  *        
+      *  > AC70¨                                                 0064  *        
+      * +ABINI        : Initialisation des SPL en TP             0006 ¨*        
+      * +ABLCL        : REQUETE LECTURE PAR CLE GREEN                 ¨*        
+      *  > F95DC¨DC03¨N¨                                         0059  *        
+      *  > F95DD¨DC05¨N¨                                         0060  *        
+      *  > F95DE¨DC23¨N¨                                         0061  *        
+      * +ABLF1        : Requête d{but de balayage par cl{ et fil      ¨*        
+      *  > DC02¨O¨                                               0062  *        
+      * +ABLFS        : Requête suite balayage par cl{ et filtre      ¨*        
+      *  > DC02¨ ¨                                               0063  *        
+      * +ABOCC        : Acc}s objet cl{ logique compl}te              ¨*        
+      *  > F95BB¨DF01¨IDTF¨                                      0053  *        
+      *  > F95BC¨DF11¨IDTF¨                                      0054  *        
+      *  > F95BE¨DE04¨IDTF¨                                      0056  *        
+      * +ABOCI        : Acc}s objet par cl{ incompl}te                ¨*        
+      *  > F95BF¨DF02¨IDTF¨                                      0057  *        
+      *  > F95BH¨AC70¨IDTF¨                                      0065  *        
+      * +ABOCS        : Acc}s objet suivant par cl{                   ¨*        
+      *  > F95BG¨DF02¨IDTF¨                                      0058  *        
+      *  > F95BI¨AC70¨IDTF¨                                      0066  *        
+      * +ABRE1        : Acc}s premi}re relation                       ¨*        
+      *  > F95BD¨DF81¨1¨DF02¨DF29¨¨¨¨                            0055  *        
+      * +ABSDE        : START UNIX FCT "DE"                           ¨*        
+      *  > F93BC¨TA¨0990¨NM262¨" "¨8210¨TF73¨TF73¨CD¨            0029  *        
+      *  > F93BD¨RB¨0990¨ADI242¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0030  *        
+      *  > F93BE¨RB¨0990¨0010¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨           0031  *        
+      *  > F93BF¨RB¨8210¨CDSUPR¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0032  *        
+      *  > F93BG¨RB¨0990¨BA102¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨          0033  *        
+      *  > F93BH¨RB¨0AMT¨ADI002¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0034  *        
+      *  > F93BI¨RB¨8210¨CDCAPR¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0035  *        
+      *  > F93BJ¨RB¨0990¨ADI022¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0036  *        
+      *  > F93BK¨RB¨0990¨ADI012¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0037  *        
+      *  > F93BL¨RB¨0990¨ADI221¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0038  *        
+      *  > F93BM¨RB¨0990¨ADI244¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0039  *        
+      *  > F93BN¨RB¨0990¨ADI262¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0040  *        
+      *  > F93BO¨RB¨0990¨ADI243¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0041  *        
+      *  > F93BP¨RB¨0990¨ADI240¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0042  *        
+      *  > F93BQ¨RB¨0990¨ADI018¨TD15-ZVAMIN¨ ¨ ¨TD15¨CD¨         0043  *        
+      *  > F93BR¨TA¨8210¨PG1057¨" "¨8210¨TF81¨TF81¨CD¨           0067  *        
+      * AAAREQ        : Environnement Requêtes GREEN - VRP       0005 ¨*        
+      * AABPA3        : Lecture param}tre DE04 (optim.)               ¨*        
+      *  > 01¨01¨A¨PA¨ZCJC01AU¨`¨L¨B¨                            0002  *        
+      *  > 99¨99¨A¨PA¨D5JC99AU¨`¨L¨B¨                            0068  *        
+      * AATME3        : Encapsulation message d'erreur variable       ¨*        
+      *  > 01¨"LE NUMERO DE PRET"¨"EST OBLIGATOIRE"¨¨¨           0044  *        
+      *  > 02¨"ACCES DF01 KO"¨"- IDELCO :"¨TX00-IDELC0¨¨         0045  *        
+      *  > 03¨"ACCES DF11 KO"¨"- IDELCO :"¨DF01-IDELCO¨¨         0046  *        
+      *  > 04¨"ACCES DF81 KO"¨"- IDELCO :"¨DF02-IDELCO¨¨         0047  *        
+      *  > 05¨"ACCES DC03 KO"¨"- IDPART :"¨DF01-IDPART¨¨         0048  *        
+      *  > 06¨"DF02 NON TROUVE"¨"- IDELCO :"¨DF02-IDELCO¨¨       0049  *        
+      *  > 07¨"DC02 NON TROUVE"¨"- IDELCO :"¨DC02-IDELCO¨¨       0050  *        
+      *  > 08¨"DC05 NON TROUVE"¨"- IDELCO :"¨DC02-IDELCO¨¨       0051  *        
+      *  > 09¨"DC23 NON TROUVE"¨"- IDELCO :"¨DC02-IDELCO¨¨       0052  *        
+      * AXIMOD        : Fonction standard Module                      ¨*        
+      *  > O¨3¨                                                  0001  *        
       ******************************************************************        
-      *</cartouche>                                                             
+      *</cartouche>                  
        IDENTIFICATION DIVISION.                                                 
        PROGRAM-ID.  AE521A.                                                     
-       AUTHOR.         ADE : Conditions d'assurance.                            
+       AUTHOR.         "ADE : Conditions d'assurance".
        DATE-COMPILED.   12/03/21.                                               
        ENVIRONMENT DIVISION.                                                    
        CONFIGURATION SECTION.                                                   
@@ -194,12 +194,13 @@
               CSP IS SAUT0                                                      
               DECIMAL-POINT IS COMMA.                                           
        DATA DIVISION.                                                           
-       WORKING-STORAGE SECTION.                                                 
+       WORKING-STORAGE SECTION.   
+      
       *<debut_working�>                                                         
       *                                                                         
       * Working - Gestion des d{branchements (GO TO)                            
       *                                                                         
-       COPY 'GENWGNIV'.                                                         
+        COPY 'GENWGNIV'.
       *Zone de composition des Libell{s d'erreur Composite                      
        01                    EREC-ERREUR.                                       
            05                EREC-X0001A           PIC X.                       

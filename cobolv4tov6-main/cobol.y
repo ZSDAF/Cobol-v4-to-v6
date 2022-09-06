@@ -12,6 +12,13 @@ int result;
 extern int pos_char;
 %}
 
+
+%union{
+    
+    char error[200];
+   
+}
+
 %token TOK_MY 
 %token TOK_ACCEPT
 %token TOK_ACCESS
@@ -347,6 +354,7 @@ extern int pos_char;
 %token TOK_STATUS
 %token TOK_STOP
 %token TOK_STRING
+%token TOK_STRING_2
 
 %token TOK_SUBTRACT
 %token TOK_SUB_QUEUE_1
@@ -433,17 +441,15 @@ program_info_list
 	
 	
 	word_list
-	: TOK_IDENTIFIER word_list_pl
-	| TOK_INTEGER word_list_pl
-	| TOK_FLOAT word_list_pl
-	| TOK_STRING word_list_pl
-	| TOK_SLASH word_list_pl
+	: TOK_IDENTIFIER word_list
+	| TOK_INTEGER word_list
+	| TOK_FLOAT word_list
+	| string word_list
+	| TOK_SLASH word_list
+	|
 	;
 	
-word_list_pl
-	: word_list
-	| /* lambda */
-	;
+
 prg_name_option
 	: optional_is common_initial optional_program
     | /* lambda */
@@ -536,29 +542,26 @@ file_section
 working_storage_section
 	: TOK_WORKING_STORAGE TOK_SECTION TOK_PERIOD
 	|TOK_WORKING_STORAGE TOK_SECTION TOK_PERIOD record_entry_block
-	| copy
+	
 	;
 
 	
 record_entry_block
-    :record_level record_entry_block_pl
+    : record_level record_entry_block
 /* 
 	JPC : remove possibility to unset value !
 
 	|TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_PERIOD
 */
-	|copy record_entry_block_pl
+	|copy record_entry_block
 	|
 	;
 
 copy
-	: TOK_COPY TOK_STRING TOK_PERIOD
-	| TOK_COPY TOK_STRING TOK_REPLACING TOK_PREF TOK_BY TOK_PREF TOK_PERIOD
+	: TOK_COPY string TOK_PERIOD
+	| TOK_COPY string TOK_REPLACING TOK_PREF TOK_BY TOK_PREF TOK_PERIOD
 	;
 
-record_entry_block_pl
-	: record_entry_block
-	;
 
 record_level
     :TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER value_entry TOK_PERIOD
@@ -572,11 +575,11 @@ record_level
 	|TOK_INTEGER level_name TOK_PICTURE TOK_INTEGER TOK_LPAREN TOK_INTEGER TOK_RPAREN TOK_PERIOD
 
 	/*CONDITION FINIE DANS LE RECORD_NEW_OR_REDEF*/
-	|TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_LPAREN TOK_INTEGER TOK_RPAREN record_new_or_redef
+	|TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_LPAREN TOK_INTEGER TOK_RPAREN record_new_or_redef TOK_PERIOD
 
 	|TOK_INTEGER TOK_IDENTIFIER picture TOK_PERIOD 
-	|TOK_INTEGER identifier TOK_PERIOD
-	/*|TOK_INTEGER identifier TOK_PICTURE TOK_STRING TOK_COMP TOK_VALUE TOK_INTEGER TOK_PERIOD*/
+	|TOK_INTEGER TOK_IDENTIFIER TOK_PERIOD
+	/*|TOK_INTEGER identifier TOK_PICTURE string TOK_COMP TOK_VALUE TOK_INTEGER TOK_PERIOD*/
 	|TOK_INTEGER TOK_IDENTIFIER record_new_or_redef TOK_PERIOD
 	|TOK_INTEGER TOK_FILLER record_new_or_redef TOK_PERIOD
 	|TOK_INTEGER 
@@ -589,7 +592,7 @@ record_level
 	;
 inc:
 	TOK_INTEGER
-	|TOK_STRING
+	|string
 	;
 
 	/*ne veut pas fonctionner*/
@@ -611,9 +614,10 @@ record_new_or_redef
 	: array_options picture TOK_COMP TOK_INTEGER value_entry reclev_option_list
 
 	/*ADD COMPUTATIONAL.*/
-	| pict_usage_args TOK_PERIOD
+	 
+	| pict_usage_args 
 	/*ADD COMPU-X.*/
-	| pict_usage_args TOK_INTEGER TOK_PERIOD
+	| pict_usage_args TOK_INTEGER 
 
 	/*ADD REDEFINES WW00 PICTURE 9(10)*/
 	| TOK_REDEFINES identifier picture  
@@ -627,7 +631,7 @@ record_new_or_redef
            " Exemple @ Reproduire ==> NE PAS ECRASER CETTE FAUSSE ANO           
       -    " elle n'est pas prise en compte lors de l'affichage       "         
              .*/
-	| TOK_VALUE value TOK_PERIOD
+	| TOK_VALUE value 
 
 	| array_options
 	;
@@ -703,6 +707,7 @@ pict_usage_args
     | TOK_COMPUTATIONAL
 	| TOK_COMPUTATIONAL_2
     | TOK_COMP
+	| TOK_COMP_2
     | TOK_DISPLAY
     | TOK_INDEX
     | TOK_PACKED_DECIMAL
@@ -724,6 +729,7 @@ value
 
 string
 	: TOK_STRING
+	| TOK_STRING_2
 	| TOK_HALF_STRING TOK_HYPHEN TOK_STRING
 	;
 	
@@ -782,10 +788,10 @@ statement_list
 	;
 	
 statement
-	:TOK_DISPLAY TOK_STRING TOK_COMMA TOK_IDENTIFIER TOK_PERIOD
-	|word_list prg_name_option TOK_PERIOD TOK_DISPLAY TOK_STRING  TOK_PERIOD
-	|TOK_DISPLAY TOK_STRING  TOK_PERIOD
-	|TOK_DISPLAY TOK_STRING  
+	:TOK_DISPLAY string TOK_COMMA TOK_IDENTIFIER TOK_PERIOD
+	|word_list prg_name_option TOK_PERIOD TOK_DISPLAY string  TOK_PERIOD
+	|TOK_DISPLAY string  TOK_PERIOD
+	|TOK_DISPLAY string  
 	|TOK_MOVE TOK_INTEGER TOK_TO TOK_IDENTIFIER TOK_PERIOD
     |clause TOK_PERIOD
 	| if_clause TOK_PERIOD
@@ -1248,7 +1254,7 @@ void main()
 {
 printf("IBM Cobol v4 to v6 preprocessor\n");
 
-FILE* file = fopen("input.cbl", "r");
+FILE* file = fopen("test.cbl", "r");
 if (file == NULL){
 	printf("Error file");
 	return;
@@ -1284,6 +1290,13 @@ yyparse();
 int yyerror(char *msg)
 {
 int m=yylineno;
+
+fprintf(stderr, "\n%s", yylval.error);
+
+    for(int i = 0; i< (pos_char - 1); i++)
+        fprintf(stderr, " ");
+    
+    fprintf(stderr, "\033[1;31m^\033[m\n");
 printf("\nError found at line number \033[1;31m%d\033[m : \033[1;31m%s\033[m in character \033[1;31m%d \033[m\n\n", m, msg, pos_char);
 return 0;
 }
