@@ -547,13 +547,14 @@ working_storage_section
 
 	
 record_entry_block
-    : record_level record_entry_block
+    : copy record_entry_block
+	| record_level record_entry_block
 /* 
 	JPC : remove possibility to unset value !
 
 	|TOK_INTEGER TOK_IDENTIFIER TOK_PICTURE TOK_INTEGER TOK_PERIOD
 */
-	|copy record_entry_block
+	
 	|
 	;
 

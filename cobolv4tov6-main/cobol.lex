@@ -9,12 +9,12 @@ pre #.*
 %x comment
 %%
 ^.*[\n<<EOF>>]  				{strcpy(yylval.error, yytext); REJECT;} /*AFFICHE LA LIGNE D'ERREUR*/
-[\+\-]?[0-9]+ { pos_char += yyleng; return(TOK_INTEGER);}
+[\+\-]?[0-9]+ { pos_char += yyleng; fprintf(stderr,"INTEGER [%s]\n",yytext); return(TOK_INTEGER);}
 
 [\+\-]?[0-9]+\.[0-9]+ { pos_char += yyleng; return(TOK_FLOAT);}
 
-\"[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*\"	{ pos_char += yyleng; return(TOK_STRING);}
-\'[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\";=><\!\$\@\#\%]*\'	{ pos_char += yyleng; return(TOK_STRING_2);}
+\"[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*\"	{ pos_char += yyleng; fprintf(stderr,"STRING [%s]\n",yytext); return(TOK_STRING);}
+\'[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\";=><\!\$\@\#\%]*\'	{ pos_char += yyleng; fprintf(stderr,"STRING_2 [%s]\n",yytext);return(TOK_STRING_2);}
 \"[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*	{ pos_char += yyleng; return(TOK_HALF_STRING);}
 
 \'[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*	{ pos_char += yyleng; return(TOK_HALF_STRING);}
@@ -83,7 +83,7 @@ pre #.*
 "continue"		{ pos_char += yyleng; return (TOK_CONTINUE);	}
 "control"			{ pos_char += yyleng; return (TOK_CONTROL);	}
 "controls"		{ pos_char += yyleng; return (TOK_CONTROLS);	}
-"copy"          { pos_char += yyleng; return (TOK_COPY);	}
+"copy"          { pos_char += yyleng;fprintf(stderr,"COPY [%s]\n",yytext); return (TOK_COPY);	}
 "corr"			{ pos_char += yyleng; return (TOK_CORR);	}
 "corresponding"		{ pos_char += yyleng; return (TOK_CORRESPONDING);	}
 "count"			{ pos_char += yyleng; return (TOK_COUNT);	}
@@ -393,14 +393,14 @@ pre #.*
 "zeroes"	|
 "zeros" 			{pos_char += yyleng; return (TOK_IDENTIFIER);}
 "calmemory"     {pos_char += yyleng; return (TOK_IDENTIFIER);}
-[a-z]([a-z0-9\-]*[a-z0-9])?	{pos_char += yyleng; return (TOK_IDENTIFIER); }
+[a-z]([a-z0-9\-]*[a-z0-9])?	{pos_char += yyleng;fprintf(stderr,"IDENTIFIER [%s]\n",yytext); return (TOK_IDENTIFIER); }
 
 "+"			{pos_char += 1; return(TOK_PLUS); }
 
 
 
 "-"			{pos_char += 1; return(TOK_HYPHEN); }
-\*.* 		{ pos_char += yyleng;}
+\*.* 		{fprintf(stderr,"COMMENTAIRES [%s]\n",yytext);} /*GERE LES COMMENTAIRES*/
 
 "/"			{pos_char += 1; return(TOK_SLASH); }
 "="			{pos_char += 1; return(TOK_EQUAL); }
