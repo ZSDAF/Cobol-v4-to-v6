@@ -1255,6 +1255,7 @@ void main()
 {
 printf("IBM Cobol v4 to v6 preprocessor\n");
 
+/*Ouverture du fichier que l'on va analyser*/
 FILE* file = fopen("test.cbl", "r");
 if (file == NULL){
 	printf("Error file");
@@ -1262,6 +1263,7 @@ if (file == NULL){
 }
 
 char str[300] = "";
+/*Fichier créé/réutilisé, pour avoir le resultat de la transformation du fichier initial*/
 FILE* new = fopen("inputV6.cbl", "w");
 if(new == NULL){
 	return;
@@ -1270,20 +1272,25 @@ if(new == NULL){
 while(fgets(str, 300, file) != NULL){
 		
 		for(int i = 0; str[i]; i++){
+			/*Si le caractère 'X' est suivi d'un espace ('') alors on continue au prochain caractère*/
 			if(str[i] == 'X' && str[i-1] == ' ' ){
 				continue;
 			}
+			/*Si le caractère 'S' est suivi du caractère '9' alors on continue au prochain caractère*/
 			else if (str[i] == 'S' && str[i+1] == '9'){
 				continue;
 			}
 
-			
+			/*Le caractère lu est sauvegardé en lettre miniscule dans la caîne str*/
 			str[i] = tolower(str[i]);
 		}
+		/*On ajoute dans le fichier inputV6.cbl la chaîne de caractère str qui contient une ligne de caractère en minuscule*/
 		fputs(str, new);
 	}
 fclose(new);
 fclose(file);
+
+/*On va donc utiliser l'analyseur sur ce fichier*/
 yyin = fopen("inputV6.cbl", "r");
 yyparse();
 }
@@ -1291,13 +1298,15 @@ yyparse();
 int yyerror(char *msg)
 {
 int m=yylineno;
-
+/*Permet d'afficher l'erreur trouvée par l'analyseur*/
 fprintf(stderr, "\n%s", yylval.error);
 
+/*Effectue un décalage par la droite pour pointer sur le caractère bloquant*/
     for(int i = 0; i< (pos_char - 1); i++)
         fprintf(stderr, " ");
     
     fprintf(stderr, "\033[1;31m^\033[m\n");
+/*Message d'erreur*/
 printf("\nError found at line number \033[1;31m%d\033[m : \033[1;31m%s\033[m in character \033[1;31m%d \033[m\n\n", m, msg, pos_char);
 return 0;
 }

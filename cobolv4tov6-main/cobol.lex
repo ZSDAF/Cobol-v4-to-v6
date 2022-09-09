@@ -8,13 +8,15 @@
 pre #.*
 %x comment
 %%
-^.*[\n<<EOF>>]  				{strcpy(yylval.error, yytext); REJECT;} /*AFFICHE LA LIGNE D'ERREUR*/
+^.*[\n<<EOF>>]  				{strcpy(yylval.error, yytext); REJECT;} /*PERMET AFFICHAGE DE LA LIGNE D'ERREUR*/
 [\+\-]?[0-9]+ { pos_char += yyleng; fprintf(stderr,"INTEGER [%s]\n",yytext); return(TOK_INTEGER);}
 
 [\+\-]?[0-9]+\.[0-9]+ { pos_char += yyleng; return(TOK_FLOAT);}
 
 \"[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*\"	{ pos_char += yyleng; fprintf(stderr,"STRING [%s]\n",yytext); return(TOK_STRING);}
-\'[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\";=><\!\$\@\#\%]*\'	{ pos_char += yyleng; fprintf(stderr,"STRING_2 [%s]\n",yytext);return(TOK_STRING_2);}
+ /*fprintf(stderr,"STRING [%s]\n",yytext); PERMET D'AVOIR EN SORTIE LE TYPE DU TOKEN RECONNU AINSI QUE SA VALEUR MISE ENTRE CROCHET, UTILE POUR VOIR DEROULEMENT DE L'ANALYSEUR ET COMPRENDRE ERREUR*/ 
+
+\'[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\"\';=><\!\$\@\#\%]*\'	{ pos_char += yyleng; fprintf(stderr,"STRING_2 [%s]\n",yytext);return(TOK_STRING_2);} /*PROBLEME AVEC CETTE EXPRESSION RECONNAIT QUE TOK_STRING*/
 \"[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*	{ pos_char += yyleng; return(TOK_HALF_STRING);}
 
 \'[a-zA-Z0-9\t \-\{\}\[\]\+\-_\*|\\\/().,\:\';=><\!\$\@\#\%]*	{ pos_char += yyleng; return(TOK_HALF_STRING);}
@@ -399,8 +401,8 @@ pre #.*
 
 
 
-"-"			{pos_char += 1; return(TOK_HYPHEN); }
-\*.* 		{fprintf(stderr,"COMMENTAIRES [%s]\n",yytext);} /*GERE LES COMMENTAIRES*/
+"-"			{pos_char += 1; return(TOK_HYPHEN); } /*RECONNAIT LE TRAIT D'UNION*/
+\*.* 		{fprintf(stderr,"COMMENTAIRE [%s]\n",yytext);} /*GERE LES COMMENTAIRES*/
 
 "/"			{pos_char += 1; return(TOK_SLASH); }
 "="			{pos_char += 1; return(TOK_EQUAL); }
